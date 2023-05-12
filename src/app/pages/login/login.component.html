@@ -1,0 +1,27 @@
+<nb-layout>
+    <nb-layout-column class="layout">
+        <nb-card-header class="header">
+            <div class="logo">
+                <img src="assets/images/logo.jpeg" alt="Logo">
+            </div>
+            <div class="title">
+                <h1>Gestor de tareas</h1>
+            </div>
+        </nb-card-header>
+        <nb-card class="card-login">
+            <nb-card-header>Inicio de sesión</nb-card-header>
+            <nb-card-body class="example-items-col">
+                <input type="text" style="margin-bottom: 5px;" nbInput fullWidth shape="semi-round"
+                    placeholder="Usuario">
+                <input type="password" style="margin-top: 5px;" nbInput fullWidth shape="semi-round"
+                    placeholder="Contaseña">
+            </nb-card-body>
+            <nb-card-footer class="d-flex justify-content-between">
+                <button nbButton status="primary" style="margin-right: 8px; width: 48%;" (click)="login()">Iniciar
+                    sesión</button>
+                <button nbButton status="primary" style="width: 48% !important;"
+                    (click)="register()">Registrarse</button>
+            </nb-card-footer>
+        </nb-card>
+    </nb-layout-column>
+</nb-layout>

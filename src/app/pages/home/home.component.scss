@@ -1,0 +1,13 @@
+.icon-exit {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    align-items: right;
+
+    &:hover {
+        color: #ccc;
+    }
+
+    position: relative;
+}

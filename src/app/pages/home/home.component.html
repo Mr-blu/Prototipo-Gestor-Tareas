@@ -1,0 +1,15 @@
+<nb-layout>
+    <nb-layout-header fixed>Gestor de tareas
+        <nb-icon class="icon-exit" icon="log-out-outline" (click)="logout()">Salir</nb-icon>
+
+    </nb-layout-header>
+
+    <nb-sidebar>
+        <nb-menu [items]="items"></nb-menu>
+    </nb-sidebar>
+
+    <nb-layout-column>
+        <router-outlet></router-outlet>
+
+    </nb-layout-column>
+</nb-layout>
