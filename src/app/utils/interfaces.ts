@@ -3,20 +3,24 @@ export interface User {
 
 }
 
-export interface Project {
+export interface Proyecto {
+    id: number;
     Nombre: string;
     Descripción: string;
     Estado: string;
-    Tareas?: Task[];
+    Tareas?: Tarea[];
     FechaInicio?: string;
     FechaFin?: string;
 }
 
-export interface Task {
-    name: string;
-    description: string;
-    status: string;
-    priority: string;
-    project: Project;
-    user: string;
+export interface Tarea {
+    id: number;
+    Nombre: string;
+    Descripción: string;
+    Estado: string;
+    Prioridad: string;
+    Proyecto: number | String;
+    Usuario: string;
+    FechaInicio?: string;
+    FechaFin?: string;
 }

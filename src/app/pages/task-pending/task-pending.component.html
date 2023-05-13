@@ -1,1 +1,42 @@
-<p>task-pending works!</p>
+<nb-card>
+    <nb-card-header>
+        <h1>Tareas pendientes</h1>
+    </nb-card-header>
+    <nb-card-body>
+        <!--Crud Project -->
+        <label class="search-label" for="search">Buscar por nombre:</label>
+        <input nbInput [nbFilterInput]="dataSource" id="search" class="search-input">
+
+        <table [nbTreeGrid]="dataSource" [nbSort]="dataSource" (sort)="updateSort($event)">
+
+            <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
+            <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns"></tr>
+
+            <ng-container [nbTreeGridColumnDef]="customColumn">
+                <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(customColumn)" *nbTreeGridHeaderCellDef>
+                    {{customColumn}}
+                </th>
+                <td nbTreeGridCell *nbTreeGridCellDef="let row">
+                    {{row.data[customColumn]}}
+                </td>
+            </ng-container>
+
+            <ng-container *ngFor="let column of defaultColumns; let index = index" [nbTreeGridColumnDef]="column"
+                [showOn]="getShowOn(index)">
+                <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(column)" *nbTreeGridHeaderCellDef>
+                    {{column}}
+                </th>
+                <td nbTreeGridCell *nbTreeGridCellDef="let row">
+                    <nb-fs-icon [kind]="row.data.kind" [expanded]="row.expanded"></nb-fs-icon>
+
+                    {{row.data[column] || '-'}}
+                </td>
+            </ng-container>
+
+        </table>
+
+    </nb-card-body>
+    <nb-card-footer style="margin-top: 5px;">
+        <button nbButton status="primary" (click)="createProject()" class="btn btn-primary">Agregar tarea</button>
+    </nb-card-footer>
+</nb-card>

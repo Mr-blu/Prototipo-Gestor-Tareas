@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NbDialogService, NbSortDirection, NbSortRequest, NbTreeGridDataSource, NbTreeGridDataSourceBuilder } from '@nebular/theme';
-import { Project } from 'src/app/utils/interfaces';
 import { CreateProjectComponent } from '../create-project/create-project.component';
+import { Proyecto } from 'src/app/utils/interfaces';
+import { PROYECTOS_DATA } from 'src/app/utils/data';
 
-interface TreeNode<T> {
+export interface TreeNode<T> {
   data: T;
   children?: TreeNode<T>[];
   expanded?: boolean;
@@ -23,13 +24,13 @@ export class ProjectComponent implements OnInit {
   defaultColumns = ['Descripción', 'Estado', 'FechaInicio', 'FechaFin'];
   allColumns = [this.customColumn, ...this.defaultColumns];
 
-  dataSource: NbTreeGridDataSource<Project>;
+  dataSource: NbTreeGridDataSource<Proyecto>;
 
   sortColumn: string = '';
   sortDirection: NbSortDirection = NbSortDirection.NONE;
 
   constructor(
-    private dataSourceBuilder: NbTreeGridDataSourceBuilder<Project>,
+    private dataSourceBuilder: NbTreeGridDataSourceBuilder<Proyecto>,
     private dialogService: NbDialogService,
   ) {
     this.dataSource = this.dataSourceBuilder.create(this.data);
@@ -49,18 +50,13 @@ export class ProjectComponent implements OnInit {
 
 
 
-  private data: TreeNode<Project>[] = [
-    {
-      data: { Nombre: 'Proyecto 1', Descripción: 'Descripción 1', Estado: this.getStatus('E'), FechaInicio: '01-01-2023', FechaFin: '01-31-2023' },
-    },
-    {
-      data: { Nombre: 'Proyecto 2', Descripción: 'Descripción 2', Estado: this.getStatus('F'), FechaInicio: '01-01-2023', FechaFin: '15-30-2023' },
-    },
-    {
-      data: { Nombre: 'Proyecto 3', Descripción: 'Descripción 2', Estado: this.getStatus('E'), FechaInicio: '01-01-2023', FechaFin: '01-01-2023' },
+  private data: TreeNode<Proyecto>[] = PROYECTOS_DATA.map(proyecto => <TreeNode<Proyecto>>{
+    data: proyecto,
+    children: proyecto.Tareas ? proyecto.Tareas.map(tarea => <TreeNode<Proyecto>>{
+      data: tarea,
+    }) : null,
+  });
 
-    },
-  ];
 
 
   getStatus(status: string) {

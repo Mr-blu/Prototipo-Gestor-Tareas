@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
       {
         title: 'Salir',
         icon: 'unlock-outline',
-        url: 'login'
+        url: ''
       },
     ]
   }
