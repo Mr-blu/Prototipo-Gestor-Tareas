@@ -29,14 +29,21 @@
                 <td nbTreeGridCell *nbTreeGridCellDef="let row">
                     <nb-fs-icon [kind]="row.data.kind" [expanded]="row.expanded"></nb-fs-icon>
 
-                    {{row.data[column] || '-'}}
+                    {{row.data[column] || ''}}
+                    <div class="control-status-example">
+                        <nb-icon class="margin" *ngIf="column == 'Acciones'" placeholder="Editar"
+                            (click)="editTask(row.data)" icon="repeat" status="control"></nb-icon>
+                        <nb-icon *ngIf="column == 'Acciones'" icon="trash-2-outline" placeholder="Eliminar"
+                            (click)="deleteTask(row.data)" status="control"></nb-icon>
+                    </div>
                 </td>
+
             </ng-container>
 
         </table>
 
     </nb-card-body>
     <nb-card-footer style="margin-top: 5px;">
-        <button nbButton status="primary" (click)="createProject()" class="btn btn-primary">Agregar tarea</button>
+        <button nbButton status="primary" (click)="createTask()" class="btn btn-primary">Agregar tarea</button>
     </nb-card-footer>
 </nb-card>

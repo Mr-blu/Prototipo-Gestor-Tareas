@@ -14,6 +14,7 @@ import { TaskPendingComponent } from './pages/task-pending/task-pending.componen
 import { TaskCompletedComponent } from './pages/task-completed/task-completed.component';
 import { CreateProjectComponent } from './pages/create-project/create-project.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CreateTaskComponent } from './pages/create-task/create-task.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ProjectComponent,
     TaskPendingComponent,
     TaskCompletedComponent,
-    CreateProjectComponent
+    CreateProjectComponent,
+    CreateTaskComponent
   ],
   imports: [
     BrowserModule,

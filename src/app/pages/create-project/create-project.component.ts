@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Form, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NbDialogRef } from '@nebular/theme';
+import { Proyecto } from 'src/app/utils/interfaces';
 
 @Component({
   selector: 'app-create-project',
@@ -17,12 +19,25 @@ export class CreateProjectComponent implements OnInit {
     status: new FormControl('', [Validators.required]),
   });
 
-  constructor() { }
+  constructor(
+    private dialogRef: NbDialogRef<CreateProjectComponent>
+  ) { }
 
   ngOnInit(): void {
   }
 
 
   onSubmit() {
+    const project: Proyecto = {
+      Nombre: this.projectForm.value.name,
+      Descripción: this.projectForm.value.description,
+      FechaInicio: this.projectForm.value.startDate,
+      FechaFin: this.projectForm.value.endDate,
+      Estado: this.projectForm.value.status,
+      Tareas: [],
+      id: 0
+    };
+    this.dialogRef.close(project);
+
   }
 }

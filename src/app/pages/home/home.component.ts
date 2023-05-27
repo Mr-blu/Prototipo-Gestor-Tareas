@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NbMenuItem } from '@nebular/theme';
+import { TaskService } from 'src/app/services/task.service';
+import { PROYECTOS_DATA } from 'src/app/utils/data';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +14,8 @@ export class HomeComponent implements OnInit {
   public items: NbMenuItem[] = [];
 
   constructor(
-    private router: Router
+    private router: Router,
+    private taskService: TaskService
   ) {
     this.items = [
       {
@@ -38,7 +41,8 @@ export class HomeComponent implements OnInit {
     ]
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    await this.taskService.setProjects(PROYECTOS_DATA);
   }
 
   logout() {

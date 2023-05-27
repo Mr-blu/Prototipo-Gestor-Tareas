@@ -8,20 +8,22 @@
                 <h1>Gestor de tareas</h1>
             </div>
         </nb-card-header>
-        <nb-card class="card-login">
-            <nb-card-header>Inicio de sesión</nb-card-header>
-            <nb-card-body class="example-items-col">
-                <input type="text" style="margin-bottom: 5px;" nbInput fullWidth shape="semi-round"
-                    placeholder="Usuario">
-                <input type="password" style="margin-top: 5px;" nbInput fullWidth shape="semi-round"
-                    placeholder="Contaseña">
-            </nb-card-body>
-            <nb-card-footer class="d-flex justify-content-between">
-                <button nbButton status="success" style="margin-right: 8px; width: 48%;" (click)="login()">Iniciar
-                    sesión</button>
-                <button nbButton status="primary" style="width: 48% !important;"
-                    (click)="register()">Registrarse</button>
-            </nb-card-footer>
-        </nb-card>
+        <form [formGroup]="formLogin">
+            <nb-card class="card-login">
+                <nb-card-header>Inicio de sesión</nb-card-header>
+                <nb-card-body class="example-items-col">
+                    <input type="text" style="margin-bottom: 5px;" formControlName="user" nbInput fullWidth shape="semi-round"
+                        placeholder="Usuario">
+                    <input type="password" style="margin-top: 5px;" formControlName="pass" nbInput fullWidth shape="semi-round"
+                        placeholder="Contaseña">
+                </nb-card-body>
+                <nb-card-footer class="d-flex justify-content-between">
+                    <button [disabled]="formLogin.invalid" nbButton status="success" style="margin-right: 8px; width: 48%;" (click)="login()">Iniciar
+                        sesión</button>
+                    <button nbButton status="primary" style="width: 48% !important;"
+                        (click)="register()">Registrarse</button>
+                </nb-card-footer>
+            </nb-card>
+        </form>
     </nb-layout-column>
 </nb-layout>

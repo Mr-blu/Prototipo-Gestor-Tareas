@@ -1,15 +1,15 @@
-<!-- Formulario crear proyecto -->
+<!-- Formulario crear tarea -->
 
 <nb-card>
     <nb-card-header>
-        <h1>Crear Proyecto</h1>
+        <h1>Crear tarea</h1>
     </nb-card-header>
 
     <nb-card-body>
-        <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
-            <div  class="form-group">
+        <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
                 <input nbInput type="text" class="form-control" formControlName="name" id="name"
-                    placeholder="Nombre del proyecto">
+                    placeholder="Nombre del tarea">
             </div>
             <div class="form-group">
                 <input nbInput type="date" class="form-control" formControlName="startDate" id="startDate"
@@ -22,17 +22,16 @@
             </div>
 
             <div class="form-group">
-                <textarea nbInput class="form-control" formControlName="description" id="description" placeholder="Descripción"
-                    rows="3"></textarea>
+                <textarea nbInput class="form-control" formControlName="description" id="description"
+                    placeholder="Descripción" rows="3"></textarea>
             </div>
-            <div class="form-group">
-                <nb-select formControlName="status" id="status" placeholder="Estado">
-                    <nb-option value="1">Activo</nb-option>
-                    <nb-option value="0">Inactivo</nb-option>
+           <div class="form-group">
+                <nb-select formControlName="proyecto" id="proyecto" placeholder="Proyecto">
+                    <nb-option *ngFor="let p of projects" value={{p.Nombre}}> {{ p.Nombre }} </nb-option>
                 </nb-select>
 
             </div>
-            <button style="width: 100%;" nbButton type="submit" class="btn btn-primary">Crear Proyecto</button>
+            <button style="width: 100%;" nbButton type="submit" class="btn btn-primary">Crear tarea</button>
         </form>
     </nb-card-body>
 

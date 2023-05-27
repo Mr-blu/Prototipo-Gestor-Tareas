@@ -3,6 +3,7 @@ import { NbDialogService, NbSortDirection, NbSortRequest, NbTreeGridDataSource, 
 import { PROYECTOS_DATA } from 'src/app/utils/data';
 import { Tarea } from 'src/app/utils/interfaces';
 import { TreeNode } from '../project/project.component';
+import { TaskService } from 'src/app/services/task.service';
 
 @Component({
   selector: 'app-task-completed',
@@ -12,8 +13,7 @@ import { TreeNode } from '../project/project.component';
 export class TaskCompletedComponent implements OnInit {
 
 
-  ngOnInit(): void {
-  }
+ 
   customColumn = 'Nombre';
   defaultColumns = ['Descripción', 'Estado', 'Proyecto', 'FechaInicio', 'FechaFin'];
   allColumns = [this.customColumn, ...this.defaultColumns];
@@ -26,8 +26,56 @@ export class TaskCompletedComponent implements OnInit {
   constructor(
     private dataSourceBuilder: NbTreeGridDataSourceBuilder<Tarea>,
     private dialogService: NbDialogService,
+    private taskService: TaskService
   ) {
-    this.dataSource = this.dataSourceBuilder.create(this.data);
+    //this.dataSource = this.dataSourceBuilder.create(this.data);
+    this.taskService.changeProjects()
+    this.taskService.projectsEmitter.subscribe(data => {
+      console.log("EMIT TaskPendingComponent init: ", data);
+      let tmp = data
+      let tareas: Tarea[] = []
+      tmp.forEach(proyecto => {
+        if (proyecto.Tareas != null) {
+          proyecto.Tareas.forEach(tarea => {
+            if (tarea.Estado == 'Finalizada') {
+              tareas.push({ ...tarea, Proyecto: proyecto.Nombre });
+            }
+
+          });
+        }
+      });
+      let response = tareas.map(tarea => <TreeNode<Tarea>>{
+        data: tarea,
+      })
+
+      this.dataSource = this.dataSourceBuilder.create(response);
+    })
+  }
+
+
+  async ngOnInit() {
+    this.taskService.changeProjects()
+    await this.taskService.projectsEmitter.subscribe(data => {
+      console.log("EMIT TaskPendingComponent init: ", data);
+      let tmp = data
+      let tareas: Tarea[] = []
+      tmp.forEach(proyecto => {
+        if (proyecto.Tareas != null) {
+          proyecto.Tareas.forEach(tarea => {
+            if (tarea.Estado == 'Finalizada') {
+              tareas.push({ ...tarea, Proyecto: proyecto.Nombre });
+            }
+
+          });
+        }
+      });
+      let response = tareas.map(tarea => <TreeNode<Tarea>>{
+        data: tarea,
+      })
+
+      this.dataSource = this.dataSourceBuilder.create(response);
+    })
+
   }
 
   updateSort(sortRequest: NbSortRequest): void {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,8 +9,13 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  public user  = null;
-  public pass = null;
+  public userDefault = "unad";
+  public pass = 1234;
+
+  public formLogin: FormGroup = new FormGroup({
+    user: new FormControl('', [Validators.required]),
+    pass: new FormControl('', [Validators.required]),
+  });
 
   constructor(
     private router: Router
@@ -24,7 +30,12 @@ export class LoginComponent implements OnInit {
 
 
   login() {
-    this.router.navigate(['/home']);
+    if (this.formLogin.value.user == this.userDefault && this.formLogin.value.pass == this.pass) {
+      this.router.navigate(['/home']);
+    }
+    else {
+      alert("Usuario o contraseña incorrecta");
+    }
   }
 
 }
